@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>인터랙티브 대시보드</title>
+    <style>
+        .hidden { display: none; }
+        #tabs button { margin-right: 8px; }
+    </style>
+</head>
+<body>
+<div id="tabs">
+    <button id="tab-calc">계산기</button>
+    <button id="tab-quiz">퀴즈</button>
+</div>
+
+<!-- 계산기 섹션 -->
+<section id="calc-section">
+    <input id="n1" type="number" placeholder="숫자1">
+    <input id="n2" type="number" placeholder="숫자2">
+    <button data-op="+">+</button>
+    <button data-op="-">-</button>
+    <button data-op="*">×</button>
+    <button data-op="/">÷</button>
+    <div id="calc-result"></div>
+</section>
+
+<!-- 퀴즈 섹션 -->
+<section id="quiz-section" class="hidden">
+    <p id="quiz-question"></p>
+    <input id="quiz-answer" placeholder="답 입력">
+    <button id="quiz-check">확인</button>
+</section>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

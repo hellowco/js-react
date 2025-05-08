@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>알고리즘 실험실</title>
+  <style>
+    canvas { border: 1px solid #ccc; display: block; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <label for="algorithm">알고리즘 선택:</label>
+  <select id="algorithm">
+    <option value="linear">선형 탐색</option>
+    <option value="bubble">버블 정렬</option>
+    <option value="selection">선택 정렬</option>
+    <option value="merge">병합 정렬</option>
+  </select>
+  <canvas id="canvas" width="600" height="200"></canvas>
+  <button id="runBtn">실행</button>
+  <script src="script.js"></script>
+</body>
+</html>
