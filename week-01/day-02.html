@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				const quizList = [
+					{ qus: '3*9는?', ans: 27 },
+					{ qus: '7*4는?', ans: 28 },
+					{ qus: '6*2는?', ans: 12 },
+					{ qus: '8*7은?', ans: 56 },
+					{ qus: '4*2는?', ans: 8 },
+				];
+
+				const rdIndex = Math.floor(Math.random() * quizList.length);
+				const rdQuiz = quizList[rdIndex];
+
+				document.getElementById('quiz').innerText = rdQuiz.qus;
+
+				const checkBtn = document.getElementById('checkBtn');
+				checkBtn.addEventListener('click', () => {
+					const userAns = Number(document.getElementById('answer').value);
+					if (userAns === rdQuiz.ans) {
+						alert('정답입니다.');
+					} else {
+						alert('틀렸습니다. 답은 ' + rdQuiz.ans);
+					}
+
+          //alert(answerEl.value === item.a ? "정답!" : `오답. 정답은 ${item.a}` ); 정답에선 삼항연산자를 사용함!
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<p>구구단 퀴즈</p>
+		<p id="quiz"></p>
+		<input type="text" id="answer" />
+		<button id="checkBtn">제출</button>
+	</body>
+</html>
