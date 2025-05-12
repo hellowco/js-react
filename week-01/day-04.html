@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const subBtn = document.getElementById('subBtn');
+
+				subBtn.addEventListener('click', () => {
+					let score = document.getElementById('score').value;
+
+					if (score === '') {
+						alert('점수를 입력하세요.');
+						return;
+					}
+
+					// if (score >= 90) {
+					// 	console.log('A');
+					// } else if (score >= 80) {
+					// 	console.log('B');
+					// } else if (score >= 70) {
+					// 	console.log('C');
+					// } else {
+					// 	console.log('F');
+					// }
+
+          // parseInt는 실수를 정수로도 바꾸기는 하나 보통 문자열을 정수로 바꾸는 함수
+          // Math.floor의 경우는 소수점 내림 전용 함수로, 의도가 명확함
+					switch (parseInt(score / 10)) {
+						case 10:
+						case 9:
+							console.log('A');
+							break;
+						case 8:
+							console.log('B');
+							break;
+						case 7:
+							console.log('C');
+							break;
+						default:
+							console.log('F');
+					}
+
+					for (i = 1; i <= 5; i++) {
+						console.log(i);
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		점수를 입력하세요 : <input type="number" id="score" />
+		<button id="subBtn">제출</button>
+	</body>
+</html>
