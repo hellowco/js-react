@@ -11,8 +11,9 @@
 				subBtn.addEventListener('click', () => {
 					let score = document.getElementById('score').value;
 
-					if (score === '') {
-						alert('점수를 입력하세요.');
+					// isNaN(score)을 추가하여 실수를 방지
+					if (score === '' || isNaN(score)) {
+						alert('숫자를 올바르게 입력하세요.');
 						return;
 					}
 
@@ -26,8 +27,11 @@
 					// 	console.log('F');
 					// }
 
-          // parseInt는 실수를 정수로도 바꾸기는 하나 보통 문자열을 정수로 바꾸는 함수
-          // Math.floor의 경우는 소수점 내림 전용 함수로, 의도가 명확함
+					// parseInt는 실수를 정수로도 바꾸기는 하나 보통 문자열을 정수로 바꾸는 함수
+					// Math.floor의 경우는 소수점 내림 전용 함수로, 의도가 명확함
+
+					// 실수가 들어오는 경우 값은 나오나 Math.floor를 쓰는 것이 더 맞음
+					// 문자열이 들어오는 경우 값이 NaN이 나오게 되고 parseInt(NaN) → NaN 고로 아무것도 걸리지 않아서 F값이 출력됨
 					switch (parseInt(score / 10)) {
 						case 10:
 						case 9:
