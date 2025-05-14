@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.tabBox {
+				display: flex;
+				gap: 10px;
+			}
+			.tabBox div {
+				padding: 5px 10px;
+				color: #555;
+				background-color: #e0e0e0;
+				border: 1px solid #e0e0e0;
+				cursor: pointer;
+			}
+			.tabBox .active {
+				color: #000;
+				background-color: #fff;
+				border: 1px solid #000;
+			}
+
+			.tabBox ~ div {
+				display: none;
+				margin-top: 20px;
+			}
+
+			input {
+				width: 60px;
+			}
+		</style>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				//tab view
+				const tabButtons = document.querySelectorAll('.tabBox div');
+				const tabContents = {
+					tab1: document.querySelector('.tab1Cnt'),
+					tab2: document.querySelector('.tab2Cnt'),
+				};
+
+				tabButtons.forEach((tab) => {
+					tab.addEventListener('click', () => {
+						// 탭 활성화 스타일 처리
+						tabButtons.forEach((t) => t.classList.remove('active'));
+						tab.classList.add('active');
+
+						// 탭 콘텐츠 보여주기
+						const selected = tab.classList.contains('tab1') ? 'tab1' : 'tab2';
+						Object.keys(tabContents).forEach((key) => {
+							tabContents[key].style.display = key === selected ? 'block' : 'none';
+						});
+					});
+				});
+
+				// 초기 상태 설정
+				tabContents.tab1.style.display = 'block';
+				tabContents.tab2.style.display = 'none';
+
+				//tab1
+				const plus = document.getElementById('plus');
+				const minus = document.getElementById('minus');
+				const multiply = document.getElementById('multiply');
+				const division = document.getElementById('division');
+
+				function calculate(operator) {
+					const a = num1.value;
+					const b = num2.value;
+
+					if (!a || !b) {
+						alert('숫자를 모두 입력하세요');
+						return;
+					}
+
+					const x = Number(a);
+					const y = Number(b);
+					let result;
+
+					switch (operator) {
+						case '+':
+							result = x + y;
+							break;
+
+						case '-':
+							result = x - y;
+							break;
+
+						case '*':
+							result = x * y;
+							break;
+
+						case '/':
+							if (y === 0) {
+								alert('0으로 나눌 수 없습니다.');
+								return;
+							}
+							result = x / y;
+							break;
+
+						default:
+							alert('error');
+							return;
+					}
+
+					resultDiv.textContent = `결과 : ${result}`;
+				}
+
+				plus.addEventListener('click', () => calculate('+'));
+				minus.addEventListener('click', () => calculate('-'));
+				multiply.addEventListener('click', () => calculate('*'));
+				division.addEventListener('click', () => calculate('/'));
+
+				//tab2
+				const quizzes = [
+					{ q: 'JS에서 변수를 선언하는 키워드는?', a: 'let' },
+					{ q: 'JS 배열 메서드 중 요소를 추가하는 메서드는?', a: 'push' },
+					{ q: '템플릿 리터럴은 어떤 기호로 감싸나요?', a: '`' },
+					{ q: 'undefined의 타입을 알려주는 typeof 결과는?', a: 'undefined' },
+					{ q: '항상 true를 반환하는 비교 연산은?', a: '===' },
+				];
+
+				const quizEl = document.getElementById('quiz');
+				const answerEl = document.getElementById('answer');
+				const btn = document.getElementById('checkBtn');
+
+				const idx = Math.floor(Math.random() * quizzes.length);
+				const item = quizzes[idx];
+				quizEl.textContent = item.q;
+
+				btn.addEventListener('click', () => {
+					alert(answerEl.value === item.a ? '정답!' : `오답. 정답은 ${item.a}`);
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="tabBox">
+			<div class="tab1 active">계산기</div>
+			<div class="tab2">퀴즈</div>
+		</div>
+
+		<div class="tab1Cnt">
+			<input type="number" id="num1" />
+			<input type="number" id="num2" />
+
+			<button id="plus">+</button>
+			<button id="minus">-</button>
+			<button id="multiply">x</button>
+			<button id="division">÷</button>
+
+			<div id="resultDiv"></div>
+		</div>
+
+		<div class="tab2Cnt">
+			<p id="quiz"></p>
+			<input id="answer" placeholder="정답 입력" />
+			<button id="checkBtn">확인</button>
+		</div>
+	</body>
+</html>
