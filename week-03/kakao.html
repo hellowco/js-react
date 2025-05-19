@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<title>주소록 앱 (카카오 API)</title>
+	</head>
+	<body>
+		<h2>주소록</h2>
+		이름: <input type="text" id="name" /> 주소(도로명 또는 지번): <input type="text" id="address" />
+		<button id="addBtn">추가</button>
+
+		<ul id="contacts"></ul>
+
+		<script>
+			const nameInput = document.getElementById('name');
+			const addressInput = document.getElementById('address');
+			const btn = document.getElementById('addBtn');
+			const list = document.getElementById('contacts');
+
+			const API_KEY = 'f555afd643d64921710bcfff88a8f9ad';
+
+			function loadContacts() {
+				const data = JSON.parse(localStorage.getItem('contacts') || '[]');
+				list.innerHTML = '';
+				data.forEach((item, idx) => {
+					const li = document.createElement('li');
+					li.textContent = `${item.name} - ${item.road}, 우편번호: ${item.zone_no}`;
+					const del = document.createElement('button');
+					del.textContent = '삭제';
+					del.addEventListener('click', () => {
+						data.splice(idx, 1);
+						localStorage.setItem('contacts', JSON.stringify(data));
+						loadContacts();
+					});
+					li.appendChild(del);
+					list.appendChild(li);
+				});
+			}
+
+			btn.addEventListener('click', () => {
+				const name = nameInput.value.trim();
+				const address = addressInput.value.trim();
+				if (!name || !address) return alert('이름과 주소를 입력하세요.');
+
+				fetch(
+					`https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURIComponent(
+						address
+					)}`,
+					{
+						headers: {
+							Authorization: `KakaoAK ${API_KEY}`,
+						},
+					}
+				)
+					.then((res) => res.json())
+					.then((data) => {
+						if (data.documents.length === 0) {
+							alert('주소를 찾을 수 없습니다.');
+							return;
+						}
+
+						const info = data.documents[0];
+						const contact = {
+							name,
+							road: info.road_address?.address_name || info.address.address_name,
+							zone_no: info.road_address?.zone_no || info.address?.zone_no || 'N/A',
+						};
+
+						const contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+						contacts.push(contact);
+						localStorage.setItem('contacts', JSON.stringify(contacts));
+						loadContacts();
+						nameInput.value = addressInput.value = '';
+					})
+					.catch((err) => {
+						console.error(err);
+						alert('주소 검색에 실패했습니다.');
+					});
+			});
+
+			loadContacts();
+		</script>
+	</body>
+</html>
