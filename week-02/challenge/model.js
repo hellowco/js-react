@@ -12,7 +12,7 @@ export function getTasks() {
 	return tasks;
 }
 
-export function message() {
-	const msgs = ['오늘도 힘내세요', '할 일은 다 하셨나요?', '잘하고 있어요~'];
-	return msgs;
-}
+// export function message() {
+// 	const msgs = ['오늘도 힘내세요', '할 일은 다 하셨나요?', '잘하고 있어요~'];
+// 	return msgs;
+// }

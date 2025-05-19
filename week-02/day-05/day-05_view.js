@@ -1,17 +1,23 @@
-export function renderList(taskArr) {
-	const list = document.getElementById('taskList');
-	list.innerHTML = '';
+// view.js
+import { getTasks, remove } from './day-05_model.js';
 
-	taskArr.forEach((task) => {
+export function renderList() {
+	const listEl = document.getElementById('taskList');
+	//추가 및 삭제 시 기존 리스트를 비우고 
+	listEl.innerHTML = '';
+	//다시 만들게 됨
+	getTasks().forEach((task, idx) => {
 		const li = document.createElement('li');
-		li.textContent = task.text;
-
+		li.textContent = task + ' ';
 		const btn = document.createElement('button');
 		btn.textContent = '삭제';
-		btn.classList.add('deltBtn');
-		btn.dataset.id = task.id;
+
+		btn.addEventListener('click', () => {
+			remove(idx);
+			renderList();
+		});
 
 		li.appendChild(btn);
-		list.appendChild(li);
+		listEl.appendChild(li);
 	});
 }
